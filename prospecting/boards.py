@@ -52,6 +52,8 @@ class Posting:
     locations: list[str]
     url: str
     description: str
+    # Groups re-posts of one requisition (e.g. one Greenhouse job posted per city); falls back to title+team.
+    job_key: str = ""
 
 
 @dataclass
@@ -105,7 +107,8 @@ def _parse(provider: str, company: Company, data) -> list[Posting]:
             locs = [j.get("location", {}).get("name", "")] + [o.get("name", "") for o in j.get("offices", [])]
             team = ", ".join(d["name"] for d in j.get("departments", []) if d.get("name"))
             out.append(Posting(company.name, provider, str(j["id"]), j.get("title", ""), team,
-                               [l for l in locs if l], j.get("absolute_url", ""), html_to_text(j.get("content", ""))))
+                               [l for l in locs if l], j.get("absolute_url", ""), html_to_text(j.get("content", "")),
+                               job_key=str(j.get("internal_job_id") or "")))
     elif provider == "lever":
         for j in data:
             cat = j.get("categories", {}) or {}

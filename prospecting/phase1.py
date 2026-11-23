@@ -47,7 +47,7 @@ def analyze_postings(postings: list[Posting]) -> tuple[list[dict], dict]:
             continue
         cats = categories_for(matched)
         stats["flagged_postings"] += 1
-        roles.add((p.title.strip().lower(), p.team.strip().lower()))
+        roles.add(p.job_key or (p.title.strip().lower(), p.team.strip().lower()))
         stats["flagged_nyc_postings"] += nyc
         for c in cats:
             stats[f"cat:{c}"] += 1
@@ -58,7 +58,7 @@ def analyze_postings(postings: list[Posting]) -> tuple[list[dict], dict]:
             "evidence": evidence(text, matched), "link": p.url,
             "likely_hiring_manager_title_inferred": likely_hiring_manager(p.title, p.team),
         })
-    # Same role re-posted per city counts once for "unique roles".
+    # One requisition re-posted per city counts once for "unique roles".
     stats["flagged_unique_roles"] = len(roles)
     return rows, stats
 
