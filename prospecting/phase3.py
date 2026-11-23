@@ -2,6 +2,7 @@
 import csv
 import html
 import logging
+import re
 from collections import Counter, defaultdict
 from datetime import date
 from pathlib import Path
@@ -70,6 +71,7 @@ def build_rows(companies, p1_companies: list[dict], p1_postings: list[dict], p2:
         best = _best_posting(ps, top_kw)
         repos = [r.strip() for r in (g.get("example_repos") or "").split(";") if r.strip()]
         evidence = best["link"] if best else (f"https://github.com/{repos[0]}" if repos else "")
+        evidence = re.sub(r"^http://", "https://", evidence)
         owner, basis = owner_persona([p["likely_hiring_manager_title_inferred"] for p in ps], c.sector)
 
         reasons = ([] if has_board else [f"no public job board (ATS: {j.get('ats_detected') or 'unknown'})"]) + \
