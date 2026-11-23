@@ -64,3 +64,12 @@ def test_short_bullets_are_not_lost_or_section_enders():
     assert structured
     assert "migrating legacy systems" in text and "tech debt" in text
     assert "stipend" not in text
+
+
+def test_inline_formatting_keeps_vendor_sentence_whole():
+    from prospecting.boards import html_to_text
+    text = html_to_text("<h3>Responsibilities</h3><p>We help <strong>customers</strong> migrate their systems.</p>"
+                        "<ul><li>Own <a href='#'>billing</a></li><li>Line one<br>line two</li></ul>")
+    assert text.split("\n") == ["Responsibilities", "We help customers migrate their systems.", "Own billing",
+                                 "Line one", "line two"]
+    assert "migrate" not in relevant_text(text, CFG)[0]
