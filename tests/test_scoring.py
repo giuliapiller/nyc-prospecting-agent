@@ -116,3 +116,9 @@ def test_dashboard_escapes_and_limits_to_top_n():
     out = render_dashboard(rows, top_n=1)
     assert "<script>x" not in out and "&lt;script&gt;" in out
     assert "Bank" not in out
+
+
+def test_total_rounds_unrounded_sum():
+    s = score(flagged_unique_roles=0, engineering_postings=9, nyc_engineering_postings=0, hq="nyc",
+              tool_stack_label="No public signal")
+    assert s["total"] == round(log_scaled(9, 100, 20) + 7.5 + 10)

@@ -56,8 +56,8 @@ def score(*, flagged_unique_roles: int, engineering_postings: int, nyc_engineeri
         "nyc": NYC_HQ_POINTS.get(hq, 0.0) + nyc_roles_points * min(1.0, nyc_engineering_postings / NYC_ROLES_CAP),
         "tool_stack": TOOL_STACK_POINTS.get(tool_stack_label, TOOL_STACK_POINTS["No public signal"]),
     }
-    parts = {k: round(v, 1) for k, v in parts.items()}
-    return {**parts, "total": min(100, round(sum(parts.values())))}
+    total = min(100, round(sum(parts.values())))
+    return {**{k: round(v, 1) for k, v in parts.items()}, "total": total}
 
 
 def executive_persona(sector: str, engineering_postings: int) -> str:
