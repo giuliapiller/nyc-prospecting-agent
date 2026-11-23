@@ -90,12 +90,19 @@ def _process(company: Company, overrides: dict, case_studies: dict) -> tuple[dic
     return row, postings
 
 
+def csv_safe(value):
+    """Neutralize spreadsheet formulas in untrusted text (job titles come from third-party boards)."""
+    if isinstance(value, str) and value[:1] in ("=", "+", "-", "@", "\t", "\r"):
+        return "'" + value
+    return value
+
+
 def _write(path: Path, fields: list[str], rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         w.writeheader()
-        w.writerows(rows)
+        w.writerows({k: csv_safe(v) for k, v in r.items()} for r in rows)
 
 
 def run(companies_csv: Path, out_dir: Path, overrides_csv: Path, workers: int = 6) -> list[dict]:
