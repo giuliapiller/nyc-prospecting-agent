@@ -190,7 +190,7 @@ def scan_org(gh: GitHub, org: str) -> tuple[list[dict], bool]:
         if total > len(items):
             log.debug("%s %s: %d results, first %d inspected", org, check.label, total, len(items))
         for it in items:
-            if check.match.search(it["path"]):
+            if it["repository"].get("private", True) is False and check.match.search(it["path"]):
                 files.append({"org": org, "repo": it["repository"]["full_name"], "tool": check.tool,
                               "file_type": check.label, "path": it["path"], "url": it["html_url"]})
     return files, complete
