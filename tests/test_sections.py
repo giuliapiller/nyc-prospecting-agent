@@ -55,3 +55,26 @@ def test_vendor_product_titles_do_not_flag():
     rows, stats = analyze_postings([posting("1", "Responsibilities\nBuild the sync service.",
                                             title="Senior Software Engineer, Migration Tooling")], CFG)
     assert stats["flagged_postings"] == 0
+
+
+def test_short_bullets_are_not_lost_or_section_enders():
+    desc = ("Responsibilities\nYou have experience migrating legacy systems\nManage benefits enrollment integrations\n"
+            "Reduce tech debt in the payroll service\nBenefits\nUnlimited PTO and migration stipend")
+    text, structured = role_sections(desc, CFG)
+    assert structured
+    assert "migrating legacy systems" in text and "tech debt" in text
+    assert "stipend" not in text
+
+
+def test_inline_formatting_keeps_vendor_sentence_whole():
+    from prospecting.boards import html_to_text
+    text = html_to_text("<h3>Responsibilities</h3><p>We help <strong>customers</strong> migrate their systems.</p>"
+                        "<ul><li>Own <a href='#'>billing</a></li><li>Line one<br>line two</li></ul>")
+    assert text.split("\n") == ["Responsibilities", "We help customers migrate their systems.", "Own billing",
+                                 "Line one", "line two"]
+    assert "migrate" not in relevant_text(text, CFG)[0]
+
+
+def test_internal_migration_tooling_still_counts():
+    assert "migration" in drop_vendor_context("Build migration tooling for our internal billing database.", CFG)
+    assert drop_vendor_context("Build migration tooling used by thousands of developers.", CFG) == ""

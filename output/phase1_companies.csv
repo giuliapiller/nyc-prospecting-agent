@@ -21,7 +21,7 @@ Paxos,paxos.com,Fintech,found,ashby,paxos,,25,6,0,2,0,2,modernization=1; securit
 Chainalysis,chainalysis.com,Fintech,not_found,,,,,,,,,,,,no
 Datadog,datadoghq.com,Software,found,greenhouse,datadog,,384,25,15,2,2,2,modernization=2,0,no
 MongoDB,mongodb.com,Software,found,greenhouse,mongodb,,420,102,39,15,5,11,modernization=14; security_remediation=3; test_coverage=2,5,no
-Squarespace,squarespace.com,Software,found,greenhouse,squarespace,,20,10,5,1,1,1,modernization=1,7,no
+Squarespace,squarespace.com,Software,found,greenhouse,squarespace,,20,10,5,2,2,2,modernization=1; security_remediation=1,8,no
 Etsy,etsy.com,E-commerce,not_found,,,,,,,,,,,,no
 Peloton,onepeloton.com,Consumer tech,found,greenhouse,peloton,,45,12,4,0,0,0,,0,no
 Warby Parker,warbyparker.com,Retail,not_found,,,,,,,,,,,,no
