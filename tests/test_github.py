@@ -60,6 +60,7 @@ def test_path_filters():
     assert check("AGENTS.md").match.search("svc/AGENTS.md")
     assert check(".github/copilot-instructions.md").match.search(".github/copilot-instructions.md")
     assert not check(".github/copilot-instructions.md").match.search("docs/copilot-instructions.md")
+    assert not check(".github/copilot-instructions.md").match.search("content/atlas/.github/copilot-instructions.md")
     assert check(".github/instructions/").match.search(".github/instructions/python.instructions.md")
     assert not check(".github/instructions/").match.search(".github/instructions/README.md")
 

@@ -38,9 +38,9 @@ CHECKS = [
     FileCheck("claude_code", "CLAUDE.md", "filename:CLAUDE.md", re.compile(r"(?:^|/)CLAUDE\.md$")),
     FileCheck("agents_md", "AGENTS.md", "filename:AGENTS.md", re.compile(r"(?:^|/)AGENTS\.md$")),
     FileCheck("copilot", ".github/copilot-instructions.md", "filename:copilot-instructions.md",
-              re.compile(r"(?:^|/)\.github/copilot-instructions\.md$")),
+              re.compile(r"^\.github/copilot-instructions\.md$")),
     FileCheck("copilot", ".github/instructions/", "path:.github/instructions",
-              re.compile(r"(?:^|/)\.github/instructions/.+\.instructions\.md$")),
+              re.compile(r"^\.github/instructions/.+\.instructions\.md$")),
 ]
 KEYBOARD_TOOLS = {"cursor": "Uses Cursor", "claude_code": "Uses Claude Code", "copilot": "Uses Copilot"}
 AGENTS_ONLY = "AGENTS.md only"
