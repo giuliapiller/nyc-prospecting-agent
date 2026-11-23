@@ -67,3 +67,39 @@ Outputs:
 - `output/phase2_ai_files.csv`: one row per matched file (org, repo, path, link) for spot-checking.
 
 Limits: code search only sees default branches of public, non-fork repos and returns at most 100 hits per query, so repo counts for very large orgs are lower bounds. Public repos are mostly open-source projects, so "No public signal" says nothing about internal tooling.
+
+## Phase 3: why-now score, personas, outreach angle
+
+```bash
+python -m prospecting phase3   # reads output/phase1_*.csv and output/phase2_github.csv
+```
+
+### Score (0–100)
+
+| Component | Max | Input | How |
+|---|---|---|---|
+| Project-shaped work | 45 | `flagged_unique_roles` (legacy/migration/modernization, test coverage, security remediation) | log scale, full points at 10 unique roles |
+| Engineering hiring volume | 20 | `engineering_postings` | log scale, full points at 100 postings |
+| NYC presence | 15 | HQ cue in `companies.csv` + `nyc_engineering_postings` | 7.5 for an NYC HQ (5 for NY metro, e.g. Purchase, Lake Success) + up to 7.5 for NYC engineering postings, full at 5 |
+| Tool stack | 20 | Phase 2 label | any keyboard AI tool (Cursor, Claude Code, Copilot, Mixed) 20; AGENTS.md only 15; no public signal 10 |
+
+Why these weights: project-shaped work (45) is the strongest sign a team has whole projects to hand off, so it carries the most weight. Hiring volume (20) shows engineering capacity is tight. NYC presence (15) matters for in-person selling. Tool stack (20) rewards AI-forward orgs that have already bought keyboard AI tools. Devin complements those tools, so a keyboard-tool company scores highest, not lowest. Log scales keep one very large board (MongoDB, Jane Street) from flattening everyone else. Weights and caps are constants at the top of `prospecting/scoring.py`.
+
+### Limited data
+
+A company with no public Greenhouse/Lever/Ashby board or no GitHub org found is marked `data_quality=limited data`, and `limited_data_reason` says why. It stays in the ranking. Missing inputs score 0 (and "no public signal" for tool stack), so a company with no board can reach at most about 27. Treat its rank as "unknown", not "low priority".
+
+### Personas (inferred titles only, no names)
+
+- **Executive entry point:** CIO for banking, payments, asset management, financial data, market/fintech infrastructure, insurance, telecom and pharma. Head of Engineering for orgs with fewer than 10 open engineering postings. CTO otherwise.
+- **Hands-on owner:** the most common inferred hiring-manager title across the company's flagged postings (VP wins ties). If there are none, a sector default is used, and `persona_owner_basis` says so.
+
+### Outreach angle
+
+One rule-based sentence per company: the specific signal (role count, keywords and an example title, or the `why_on_list` cue when there are no postings) followed by a tool-stack clause. Companies with a keyboard AI tool get "you already have AI for individual engineers; Devin finishes whole projects". Angles never suggest switching away from a tool.
+
+### Outputs
+
+- `output/phase3_ranked.csv`: all companies ranked, with score components, data quality, signal summary, evidence link, both personas and the angle.
+- `output/dashboard.html`: self-contained one-page view of the top 10 (score, why-now signal, evidence link, personas, angle).
+- The run log lists companies whose careers site uses Workday.
