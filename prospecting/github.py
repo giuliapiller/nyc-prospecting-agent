@@ -142,7 +142,7 @@ class GitHub:
                 time.sleep(2 ** attempt)
                 continue
             body = r.json() if r.status_code == 200 else None
-            if r.status_code in (200, 404, 422):
+            if r.status_code in (200, 404, 422) and not (body or {}).get("incomplete_results"):
                 http.CACHE_DIR.mkdir(parents=True, exist_ok=True)
                 cache.write_text(json.dumps({"status": r.status_code, "body": body}))
             else:
@@ -158,11 +158,12 @@ class GitHub:
         status, body = self.get(f"/search/users?q={quote(text + ' type:org')}&per_page=10", "search")
         return [i["login"] for i in (body or {}).get("items", [])] if status == 200 else []
 
-    def search_code(self, query: str, org: str) -> tuple[int, list[dict]] | None:
+    def search_code(self, query: str, org: str) -> tuple[int, list[dict], bool] | None:
+        """(total_count, items, incomplete) or None on error."""
         status, body = self.get(f"/search/code?q={quote(query + ' org:' + org)}&per_page=100", "code_search")
         if status != 200 or body is None:
             return None
-        return body.get("total_count", 0), body.get("items", [])
+        return body.get("total_count", 0), body.get("items", []), bool(body.get("incomplete_results"))
 
 
 def find_orgs(gh: GitHub, company: Company) -> list[tuple[dict, str]]:
@@ -188,7 +189,10 @@ def scan_org(gh: GitHub, org: str) -> tuple[list[dict], bool]:
         if res is None:
             complete = False
             continue
-        total, items = res
+        total, items, incomplete = res
+        if incomplete:
+            log.warning("%s %s: GitHub returned incomplete results", org, check.label)
+            complete = False
         if total > len(items):
             log.debug("%s %s: %d results, first %d inspected", org, check.label, total, len(items))
         for it in items:
