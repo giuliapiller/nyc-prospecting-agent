@@ -1,0 +1,37 @@
+company,website,sector,why_on_list
+BNY,bny.com,Banking,NYC HQ; core custody and banking systems; vocal on AI adoption
+American Express,americanexpress.com,Payments,NYC HQ; large legacy payments stack
+Mastercard,mastercard.com,Payments,Purchase NY HQ; big NYC-area engineering org
+Jefferies,jefferies.com,Banking,NYC HQ; mid-size bank with in-house trading tech
+BlackRock,blackrock.com,Asset management,NYC HQ; Aladdin platform is a massive codebase
+Two Sigma,twosigma.com,Quant finance,NYC HQ; engineering-first culture
+Jane Street,janestreet.com,Quant finance,NYC HQ; engineering-heavy (OCaml stack is a fun edge case)
+Bloomberg,bloomberg.com,Financial data,NYC HQ; one of the largest NYC engineering orgs
+Moody's,moodys.com,Financial data,NYC HQ; legacy analytics systems and active modernization
+S&P Global,spglobal.com,Financial data,NYC HQ; many acquired codebases to consolidate
+MSCI,msci.com,Financial data,NYC HQ; data and analytics platform
+Nasdaq,nasdaq.com,Market infrastructure,NYC HQ; exchange and fintech software
+Broadridge,broadridge.com,Fintech infrastructure,Lake Success NY HQ; legacy post-trade systems
+MetLife,metlife.com,Insurance,NYC HQ; classic insurer legacy and mainframe estate
+AIG,aig.com,Insurance,NYC HQ; ongoing tech transformation
+Travelers,travelers.com,Insurance,NYC HQ; large in-house engineering
+Lemonade,lemonade.com,Insurtech,NYC HQ; AI-native contrast case
+Betterment,betterment.com,Fintech,NYC HQ; modern stack with likely public job board
+Paxos,paxos.com,Fintech,NYC HQ; regulated crypto infrastructure
+Chainalysis,chainalysis.com,Fintech,NYC HQ; data-heavy engineering
+Datadog,datadoghq.com,Software,NYC HQ; large engineering org and dev-tools buyer
+MongoDB,mongodb.com,Software,NYC HQ; large engineering org and dev-tools buyer
+Squarespace,squarespace.com,Software,NYC HQ; mature codebase
+Etsy,etsy.com,E-commerce,Brooklyn HQ; well-known PHP legacy codebase
+Peloton,onepeloton.com,Consumer tech,NYC HQ; cost-cutting means engineering efficiency matters
+Warby Parker,warbyparker.com,Retail,NYC HQ; in-house tech team
+Verizon,verizon.com,Telecom,NYC HQ; massive legacy telecom systems
+Oscar Health,hioscar.com,Healthtech,NYC HQ; regulated and engineering-led
+Flatiron Health,flatiron.com,Healthtech,NYC HQ; regulated data platform
+Zocdoc,zocdoc.com,Healthtech,NYC HQ; mature platform
+Pfizer,pfizer.com,Pharma,NYC HQ; regulated software (peer of AstraZeneca/Evinova case study)
+The New York Times,nytimes.com,Media,NYC HQ; strong engineering org with public eng blog
+Conde Nast,condenast.com,Media,NYC HQ; many brands on shared platforms
+Paramount,paramount.com,Media,NYC HQ; streaming and legacy media systems
+Fox Corporation,foxcorporation.com,Media,NYC HQ; streaming and broadcast tech
+Warner Music Group,wmg.com,Media,NYC HQ; royalties and rights systems
