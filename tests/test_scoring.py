@@ -133,3 +133,10 @@ def test_dashboard_shows_incomplete_scan_caveat():
     rows = _fixture()
     rows[0]["limited_data_reason"] = "GitHub scan incomplete"
     assert "GitHub scan incomplete" in render_dashboard(rows, top_n=1)
+
+
+def test_example_title_only_claims_its_own_keywords():
+    a = outreach_angle(company="Acme", roles=3, keywords=["migration", "Angular"], categories=Counter(),
+                       example_title="Security Engineer", example_keywords=["migration"],
+                       tool_stack_label="No public signal", tools=[], why_on_list="NYC HQ")
+    assert "(e.g. “Security Engineer” for “migration”)" in a

@@ -100,12 +100,17 @@ def profile_cue(why_on_list: str) -> str:
 
 
 def outreach_angle(*, company: str, roles: int, keywords: list[str], categories: Counter, example_title: str,
-                   tool_stack_label: str, tools: list[str], why_on_list: str) -> str:
+                   tool_stack_label: str, tools: list[str], why_on_list: str,
+                   example_keywords: list[str] | None = None) -> str:
     """One sentence. Keyboard AI tools are positioned as complementary to Devin, never as something to replace."""
     work = work_phrase(categories)
     if roles:
         kw = _join([f"“{k}”" for k in keywords[:3]]) if keywords else "project work"
-        eg = f" (e.g. “{example_title}”)" if example_title else ""
+        eg = ""
+        if example_title:
+            ex_kw = keywords[:3] if example_keywords is None else example_keywords
+            partial = ex_kw and set(ex_kw) != set(keywords[:3])
+            eg = f" (e.g. “{example_title}”{' for ' + _join([f'“{k}”' for k in ex_kw]) if partial else ''})"
         lead = f"{roles} open engineering role{'s' * (roles != 1)} at {company} mention{'s' * (roles == 1)} {kw}{eg}; "
     else:
         cue = profile_cue(why_on_list)

@@ -36,9 +36,14 @@ def _int(v) -> int:
         return 0
 
 
-def _best_posting(postings: list[dict]) -> dict | None:
-    """NYC first, then the posting matching the most keywords."""
-    return max(postings, key=lambda p: (p["nyc"] == "yes", len(p["matched_keywords"].split(";"))), default=None)
+def _keywords(posting: dict) -> set[str]:
+    return {k.strip() for k in posting["matched_keywords"].split(";") if k.strip()}
+
+
+def _best_posting(postings: list[dict], top_keywords: list[str]) -> dict | None:
+    """Posting covering most of the company's top keywords, then NYC, then most keywords overall."""
+    return max(postings, key=lambda p: (len(_keywords(p) & set(top_keywords)), p["nyc"] == "yes",
+                                        len(_keywords(p))), default=None)
 
 
 def build_rows(companies, p1_companies: list[dict], p1_postings: list[dict], p2: list[dict]) -> list[dict]:
@@ -61,7 +66,8 @@ def build_rows(companies, p1_companies: list[dict], p1_postings: list[dict], p2:
         kw = Counter(k.strip() for p in ps for k in p["matched_keywords"].split(";") if k.strip())
         cats = Counter(k.strip() for p in ps for k in p["keyword_categories"].split(";") if k.strip())
         tools = [t for t, col in TOOL_COUNT_COLS.items() if _int(g.get(col))]
-        best = _best_posting(ps)
+        top_kw = [k for k, _ in kw.most_common(3)]
+        best = _best_posting(ps, top_kw)
         repos = [r.strip() for r in (g.get("example_repos") or "").split(";") if r.strip()]
         evidence = best["link"] if best else (f"https://github.com/{repos[0]}" if repos else "")
         owner, basis = owner_persona([p["likely_hiring_manager_title_inferred"] for p in ps], c.sector)
@@ -93,8 +99,10 @@ def build_rows(companies, p1_companies: list[dict], p1_postings: list[dict], p2:
             "persona_executive_inferred": executive_persona(c.sector, eng),
             "persona_owner_inferred": owner, "persona_owner_basis": basis,
             "outreach_angle": outreach_angle(
-                company=c.name, roles=roles, keywords=[k for k, _ in kw.most_common(3)], categories=cats,
-                example_title=best["job_title"] if best else "", tool_stack_label=label, tools=tools,
+                company=c.name, roles=roles, keywords=top_kw, categories=cats,
+                example_title=best["job_title"] if best else "",
+                example_keywords=[k for k in top_kw if best and k in _keywords(best)],
+                tool_stack_label=label, tools=tools,
                 why_on_list=c.why_on_list),
             "existing_customer_public": j.get("existing_customer_public", "no"),
         })
