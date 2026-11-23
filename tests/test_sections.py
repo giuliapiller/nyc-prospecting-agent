@@ -73,3 +73,8 @@ def test_inline_formatting_keeps_vendor_sentence_whole():
     assert text.split("\n") == ["Responsibilities", "We help customers migrate their systems.", "Own billing",
                                  "Line one", "line two"]
     assert "migrate" not in relevant_text(text, CFG)[0]
+
+
+def test_internal_migration_tooling_still_counts():
+    assert "migration" in drop_vendor_context("Build migration tooling for our internal billing database.", CFG)
+    assert drop_vendor_context("Build migration tooling used by thousands of developers.", CFG) == ""
