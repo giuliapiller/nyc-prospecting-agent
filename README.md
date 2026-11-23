@@ -34,3 +34,34 @@ Outputs:
 - `output/no_public_board.csv` lists the companies that were skipped.
 
 API responses are cached in `.cache/` for 20h. Set `PROSPECTING_CACHE_TTL=0` to force a refresh.
+
+## Phase 2: AI tool-stack signal (GitHub)
+
+```bash
+GITHUB_TOKEN=... python -m prospecting phase2   # writes output/phase2_*.csv; ~25 min cold, seconds when cached
+```
+
+How it works:
+- **Org discovery.** Candidate orgs come from GitHub org search (company name and domain stem) plus login guesses. Anyone can type any website into an org profile, so a domain alone isn't enough:
+  - Website/email on the company's domain: the org must also be GitHub-verified or have a login containing the company name or domain stem.
+  - Website on a sibling domain named after the company (`americanexpress.io`, `techatbloomberg.com`): the login must be exactly the company name or domain stem. This rejects `alexslemonade.org`, `lemonade.social` and `wanderlandtravelers.us`.
+  - Orgs with no public repos are skipped; up to 5 orgs per company are scanned.
+- **Overrides.** Pin orgs in `config/github_orgs.csv` (`orgs` is `;`-separated).
+- **File checks.** One GitHub code-search query per org per file type, with returned paths re-checked by regex:
+
+| Tool | Files |
+|---|---|
+| Cursor | `.cursorrules`, `.cursor/` |
+| Claude Code | `CLAUDE.md` |
+| Copilot | `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` |
+| Agent-aware | `AGENTS.md` (tool-neutral) |
+
+- **Labels.** `Uses Cursor` / `Uses Claude Code` / `Uses Copilot` for one keyboard tool, `Mixed` for two or more, `AGENTS.md only` when the only file is AGENTS.md, else `No public signal`. AGENTS.md is always listed in `ai_files_found`.
+- **Rate limits.** Requests are paced under GitHub's limits (code search 10/min, search 30/min) and back off on `Retry-After` / `X-RateLimit-Reset`. Responses are cached with the Phase 1 cache.
+- **Privacy.** Only org profiles, repo names and file paths are read. No members, commit authors or contributor data.
+
+Outputs:
+- `output/phase2_github.csv`: per company, the matched orgs and why they matched, the label, repo counts per tool, `ai_files_found`, example repos, and `scan_complete`.
+- `output/phase2_ai_files.csv`: one row per matched file (org, repo, path, link) for spot-checking.
+
+Limits: code search only sees default branches of public, non-fork repos and returns at most 100 hits per query, so repo counts for very large orgs are lower bounds. Public repos are mostly open-source projects, so "No public signal" says nothing about internal tooling.
