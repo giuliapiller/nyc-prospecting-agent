@@ -122,3 +122,8 @@ def test_total_rounds_unrounded_sum():
     s = score(flagged_unique_roles=0, engineering_postings=9, nyc_engineering_postings=0, hq="nyc",
               tool_stack_label="No public signal")
     assert s["total"] == round(log_scaled(9, 100, 20) + 7.5 + 10)
+
+
+def test_owner_from_director_only_postings():
+    title, basis = owner_persona(["CTO / SVP Engineering"], "Banking")
+    assert title == "SVP Engineering" and "default" not in basis

@@ -70,7 +70,11 @@ def executive_persona(sector: str, engineering_postings: int) -> str:
 
 def owner_persona(hiring_manager_titles: list[str], sector: str) -> tuple[str, str]:
     """Most common inferred hiring-manager title across flagged postings (VP wins ties). Returns (title, basis)."""
-    titles = [t for t in hiring_manager_titles if t and not t.startswith("CTO")]
+    inferred = [t for t in hiring_manager_titles if t]
+    titles = [t for t in inferred if not t.startswith("CTO")]
+    if inferred and not titles:
+        # Only director-level postings, whose inferred manager is the CTO/SVP; the SVP is the hands-on owner.
+        return "SVP Engineering", f"from {len(inferred)} flagged director-level posting{'s' * (len(inferred) != 1)}"
     if titles:
         counts = Counter(titles)
         best = max(counts, key=lambda t: (counts[t], t.startswith("VP"), t))
