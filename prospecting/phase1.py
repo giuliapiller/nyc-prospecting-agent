@@ -92,7 +92,7 @@ def _process(company: Company, overrides: dict, case_studies: dict) -> tuple[dic
 
 def csv_safe(value):
     """Neutralize spreadsheet formulas in untrusted text (job titles come from third-party boards)."""
-    if isinstance(value, str) and value[:1] in ("=", "+", "-", "@", "\t", "\r"):
+    if isinstance(value, str) and value[:1] in ("=", "+", "-", "@", "\t", "\r", "\n"):
         return "'" + value
     return value
 

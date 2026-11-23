@@ -22,5 +22,6 @@ def test_unique_roles_fallback_title_team():
 def test_csv_safe():
     assert csv_safe("=HYPERLINK(\"x\")") == "'=HYPERLINK(\"x\")"
     assert csv_safe("+1") == "'+1" and csv_safe("@SUM(A1)") == "'@SUM(A1)"
+    assert csv_safe("\n=1") == "'\n=1"
     assert csv_safe("Senior Engineer") == "Senior Engineer"
     assert csv_safe(5) == 5
