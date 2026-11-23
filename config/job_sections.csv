@@ -30,7 +30,7 @@ drop,^about (?!(?:the|this) (?:role|position|job|opportunity)|you)
 drop,^who we are
 drop,^(?:about )?our (?:mission|values|compass|story|culture)
 drop,^why (?:you should )?(?:apply|join|work)
-drop,"^(?:(?:our|your|the|total|compensation|pay|and|&)\s+){0,3}(?:benefits|perks|compensation|salary|pay range|base pay)"
+drop,"^(?:(?:our|your|the|total|employee|compensation|pay|and|&)\s+){0,3}(?:benefits|perks|compensation|salary|pay range|base pay)"
 drop,^(?:equal (?:employment )?opportunit|eeo\b|accommodation)
 drop,^learn more
 drop,^requisition id

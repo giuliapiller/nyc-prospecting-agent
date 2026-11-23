@@ -84,3 +84,8 @@ def test_long_responsibility_heading_opens_section():
     desc = "What you will do in your first six months\nLead the ledger migration\nQualifications\n5 years of Go"
     text, structured = role_sections(desc, CFG)
     assert structured and "ledger migration" in text
+
+
+def test_employee_benefits_ends_section():
+    text, _ = role_sections("Responsibilities\nBuild APIs\nEmployee Benefits\nCloud migration courses", CFG)
+    assert "Build APIs" in text and "migration" not in text
