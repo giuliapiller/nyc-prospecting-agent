@@ -10,6 +10,7 @@ from .classify import is_engineering, is_nyc, likely_hiring_manager
 from .companies import Company, load_companies
 from .customers import fetch_case_studies, match_customer
 from .keywords import categories_for, evidence, match_keywords
+from .sections import SectionConfig, drop_vendor_context, load_config, relevant_text
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +18,8 @@ POSTING_FIELDS = ["company", "provider", "job_title", "team", "location", "nyc",
                   "keyword_categories", "evidence", "link", "likely_hiring_manager_title_inferred"]
 COMPANY_FIELDS = ["company", "website", "sector", "board_status", "board_provider", "board_slug", "ats_detected",
                   "total_postings", "engineering_postings", "nyc_engineering_postings", "flagged_postings",
-                  "flagged_nyc_postings", "flagged_unique_roles", "flagged_by_category", "existing_customer_public"]
+                  "flagged_nyc_postings", "flagged_unique_roles", "flagged_by_category",
+                  "unstructured_engineering_postings", "existing_customer_public"]
 
 
 def strip_boilerplate(postings: list[Posting], min_share: float = 0.25, min_count: int = 3) -> dict[str, str]:
@@ -32,7 +34,8 @@ def strip_boilerplate(postings: list[Posting], min_share: float = 0.25, min_coun
     return {pid: "\n".join(b for b in bs if counts[b] < threshold or len(b) < 40) for pid, bs in blocks.items()}
 
 
-def analyze_postings(postings: list[Posting]) -> tuple[list[dict], dict]:
+def analyze_postings(postings: list[Posting], cfg: SectionConfig | None = None) -> tuple[list[dict], dict]:
+    cfg = cfg or load_config()
     eng = [p for p in postings if is_engineering(p.title, p.team)]
     cleaned = strip_boilerplate(postings) if postings else {}
     rows, stats, roles = [], Counter(), set()
@@ -41,7 +44,9 @@ def analyze_postings(postings: list[Posting]) -> tuple[list[dict], dict]:
     for p in eng:
         nyc = is_nyc(*p.locations)
         stats["nyc_engineering_postings"] += nyc
-        text = f"{p.title}\n{cleaned.get(p.id, p.description)}"
+        body, structured = relevant_text(cleaned.get(p.id, p.description), cfg)
+        stats["unstructured_engineering_postings"] += not structured
+        text = f"{drop_vendor_context(p.title, cfg)}\n{body}"
         matched = match_keywords(text)
         if not matched:
             continue
@@ -86,7 +91,8 @@ def _process(company: Company, overrides: dict, case_studies: dict) -> tuple[dic
     row.update({"board_status": "found", "board_provider": board.provider, "board_slug": board.slug,
                 "flagged_by_category": "; ".join(f"{k}={v}" for k, v in cats),
                 **{k: stats[k] for k in ("total_postings", "engineering_postings", "nyc_engineering_postings",
-                                         "flagged_postings", "flagged_nyc_postings", "flagged_unique_roles")}})
+                                         "flagged_postings", "flagged_nyc_postings", "flagged_unique_roles",
+                                         "unstructured_engineering_postings")}})
     return row, postings
 
 

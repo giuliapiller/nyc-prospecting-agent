@@ -1,0 +1,25 @@
+# Sentences matching any of these (case-insensitive regex, one per line) describe the employer's own product or
+# its customers' projects, not internal engineering work, so keyword matches inside them are ignored.
+\bour customers?\b
+\bcustomers?['’]
+\b(?:help|helping|helps|enable|enabling|empower|empowering|support|supporting|partner with|work with|working with)\s+(?:our\s+)?(?:customers|clients|enterprises|organizations|companies|developers)\b
+\bfor (?:our )?(?:customers|clients)\b
+\bclients?['’] (?:applications?|systems?|legacy|data)\b
+\b(?:application|app) modernization (?:program|platform|offering|practice|solutions?|services?|factory)\b
+\bmodernization (?:program|offering|solutions?|services?|practice|factory) (?:for|that)\b
+\bAI[- ]powered modernization\b
+\bRelational Migrator\b
+\bMongoDB Atlas\b
+\bwe help\b
+\bour (?:products?|platform|offerings?|solutions?) (?:helps?|enables?|lets?)\b
+# Engineers building the employer's own migration/modernization products (e.g. MongoDB's mongosync, Relational
+# Migrator, AI app-modernization program) rather than migrating internal systems.
+\bmigration (?:tool(?:ing|s)?|engine|product)\b
+\blive migrate\b
+\bmongosync\b
+\bcluster[- ]to[- ]cluster\b
+\bmodernization (?:and framework )?team\b
+\bfamiliarity with application modernization\b
+\bautomated code transformation\b
+\bmodernization deployment\b
+\bmodernization infrastructure\b

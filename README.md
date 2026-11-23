@@ -17,6 +17,8 @@ How it works:
 - **Overrides.** Pin or block a board in `config/board_overrides.csv` (`provider=none` blocks).
 - **Skipped companies.** Companies without a public board are logged and written to `output/no_public_board.csv`, with the detected ATS (e.g. Workday) when it can be identified.
 - **Engineering filter.** Engineering postings are picked by title and team. Customer-facing "engineers" are excluded: sales/solutions/support/consulting/forward-deployed roles.
+- **Role sections only.** Keywords count only under responsibilities/requirements headings ("What you'll do", "Requirements", "About you", ...). Intro, "About us", benefits and similar sections are ignored. Headings are listed in `config/job_sections.csv`. Postings with no recognizable heading are scanned whole and counted in `unstructured_engineering_postings`.
+- **Vendor-context filter.** Sentences about the employer's own product or its customers' projects are dropped before matching, so MongoDB's app-modernization offering or "help customers migrate" doesn't count. Phrases are regexes in `config/vendor_context.txt`; the filter also applies to job titles.
 - **Keyword matching.** Matching runs on the title plus the description. Text blocks repeated across 25% or more of a company's postings (About us, EEO, benefits) are removed first. Rules live in `prospecting/keywords.py`:
 
 | Category | Keywords |

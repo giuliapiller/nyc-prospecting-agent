@@ -1,0 +1,36 @@
+kind,pattern
+# Headings (case-insensitive regex, matched against short heading-like lines). Keywords count only in "keep"
+# sections; "drop" headings end a keep section. Postings with no recognizable keep heading are scanned whole.
+keep,responsibilit
+keep,what you['’]?ll (?:do|be doing|work on|get to do)
+keep,what you will (?:do|be doing|work on)
+keep,here you['’]?ll get to
+keep,day[- ]to[- ]day
+keep,^(?:your|the) role\b
+keep,about (?:the|this) (?:role|position|job|opportunity)
+keep,^the opportunity
+keep,position expectations
+keep,success measures
+keep,in this role
+keep,requirements
+keep,qualifications
+keep,about you
+keep,who you are
+keep,what you(?:['’]ll| will)? bring
+keep,what we['’]?re looking for
+keep,^you (?:have|are|might also have|bring)
+keep,(?:nice|good) to have
+keep,bonus points
+keep,preferred
+keep,things we love
+keep,we['’]?d love it if
+keep,candidate profile
+keep,(?:skills|experience)(?: and| &| you need| required)?:?$
+drop,^about (?!(?:the|this) (?:role|position|job|opportunity)|you)
+drop,who we are
+drop,our (?:mission|values|compass|story|culture)
+drop,why (?:you should )?(?:apply|join|work)
+drop,benefits|perks|compensation|salary|pay range|base pay
+drop,equal (?:employment )?opportunit|eeo|accommodation
+drop,learn more
+drop,requisition id
