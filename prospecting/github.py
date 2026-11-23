@@ -136,6 +136,8 @@ class GitHub:
                 log.info("GitHub rate limit (%s); sleeping %ss", bucket, wait)
                 time.sleep(min(wait, 3700))
                 continue
+            if r.status_code == 401:
+                raise RuntimeError("GitHub rejected GITHUB_TOKEN (401); fix the token and rerun")
             if r.status_code >= 500:
                 time.sleep(2 ** attempt)
                 continue
