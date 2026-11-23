@@ -213,7 +213,6 @@ Datadog,DataDog,DataDog/saluki,agents_md,AGENTS.md,AGENTS.md,https://github.com/
 Datadog,DataDog,DataDog/serverless-sample-app,agents_md,AGENTS.md,AGENTS.md,https://github.com/DataDog/serverless-sample-app/blob/c27b6f2c8bfd1a21754960b5de3dc41cd05363fa/AGENTS.md
 Datadog,DataDog,DataDog/java-profiler,agents_md,AGENTS.md,AGENTS.md,https://github.com/DataDog/java-profiler/blob/ac2587c7045852dff9db7bc539e006f724778cc7/AGENTS.md
 Datadog,DataDog,DataDog/dd-sdk-kotlin-multiplatform,agents_md,AGENTS.md,AGENTS.md,https://github.com/DataDog/dd-sdk-kotlin-multiplatform/blob/0abe0b975108b7c45de1eaf734664ed0ae751a27/AGENTS.md
-Datadog,DataDog,DataDog/saluki,agents_md,AGENTS.md,docs/development/agents.md,https://github.com/DataDog/saluki/blob/f589c08fa0247a78c324edb62e5b36bc201ff7fc/docs/development/agents.md
 Datadog,DataDog,DataDog/datadog-saist,agents_md,AGENTS.md,AGENTS.md,https://github.com/DataDog/datadog-saist/blob/3902a3b0aa6466e3c30c273f26a7bdeefc9881c3/AGENTS.md
 Datadog,DataDog,DataDog/dd-sdk-unity,agents_md,AGENTS.md,AGENTS.md,https://github.com/DataDog/dd-sdk-unity/blob/e57dc2fd6dfbe6204643c04fd2dc240af2a834e9/AGENTS.md
 Datadog,DataDog,DataDog/datadog-ci-rb,agents_md,AGENTS.md,AGENTS.md,https://github.com/DataDog/datadog-ci-rb/blob/fe248fb1a650a7a434f8635c6aadc8ae5064ed0d/AGENTS.md
@@ -429,7 +428,6 @@ MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,docs/viewer/AGENTS.md,htt
 MongoDB,mongodb,mongodb/bson-ruby,agents_md,AGENTS.md,AGENTS.md,https://github.com/mongodb/bson-ruby/blob/df6c74a970067c7f55d24718ee9a2876e435f839/AGENTS.md
 MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,docs/benchmark/AGENTS.md,https://github.com/mongodb/kingfisher/blob/98b67a0211b9818169cb0c3923619c00dd95c98b/docs/benchmark/AGENTS.md
 MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,src/access_map/AGENTS.md,https://github.com/mongodb/kingfisher/blob/98b67a0211b9818169cb0c3923619c00dd95c98b/src/access_map/AGENTS.md
-MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,docs-site/docs/features/agents.md,https://github.com/mongodb/kingfisher/blob/98b67a0211b9818169cb0c3923619c00dd95c98b/docs-site/docs/features/agents.md
 MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,crates/kingfisher-rules/AGENTS.md,https://github.com/mongodb/kingfisher/blob/98b67a0211b9818169cb0c3923619c00dd95c98b/crates/kingfisher-rules/AGENTS.md
 MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,crates/kingfisher-python/AGENTS.md,https://github.com/mongodb/kingfisher/blob/98b67a0211b9818169cb0c3923619c00dd95c98b/crates/kingfisher-python/AGENTS.md
 MongoDB,mongodb,mongodb/kingfisher,agents_md,AGENTS.md,crates/kingfisher-scanner/AGENTS.md,https://github.com/mongodb/kingfisher/blob/98b67a0211b9818169cb0c3923619c00dd95c98b/crates/kingfisher-scanner/AGENTS.md
@@ -470,7 +468,6 @@ MongoDB,mongodb,mongodb/mongo,copilot,.github/copilot-instructions.md,.github/co
 MongoDB,mongodb,mongodb/mongo-python-driver,copilot,.github/copilot-instructions.md,.github/copilot-instructions.md,https://github.com/mongodb/mongo-python-driver/blob/65d894b75ead08a24be96ed5d1d2cd6fb991a3fc/.github/copilot-instructions.md
 MongoDB,mongodb,mongodb/mongo-php-library,copilot,.github/copilot-instructions.md,.github/copilot-instructions.md,https://github.com/mongodb/mongo-php-library/blob/c6e9be76aa38bca4fff400569d9244b74173502f/.github/copilot-instructions.md
 MongoDB,mongodb,mongodb/leafygreen-ui,copilot,.github/copilot-instructions.md,.github/copilot-instructions.md,https://github.com/mongodb/leafygreen-ui/blob/be0774c73ce70d359d112f3be7790c9ed0dce4a6/.github/copilot-instructions.md
-MongoDB,mongodb,mongodb/docs,copilot,.github/copilot-instructions.md,content/atlas/.github/copilot-instructions.md,https://github.com/mongodb/docs/blob/1d11511947a60db94c47556d9207b298c4ef8e16/content/atlas/.github/copilot-instructions.md
 MongoDB,mongodb,mongodb/openapi,copilot,.github/copilot-instructions.md,.github/copilot-instructions.md,https://github.com/mongodb/openapi/blob/84b5ab9eb00dc49f47d6caf3c47e2a24233e6643/.github/copilot-instructions.md
 MongoDB,mongodb,mongodb/mongo-hibernate,copilot,.github/copilot-instructions.md,.github/copilot-instructions.md,https://github.com/mongodb/mongo-hibernate/blob/1528fa43882b68419c5312d1d8522b94ec284330/.github/copilot-instructions.md
 MongoDB,mongodb,mongodb/node-mongodb-native,copilot,.github/instructions/,.github/instructions/spec-tests.instructions.md,https://github.com/mongodb/node-mongodb-native/blob/7a75a3c18e472d03b2e16a16d2d563c4f676dac4/.github/instructions/spec-tests.instructions.md
