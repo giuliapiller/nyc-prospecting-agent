@@ -15,6 +15,7 @@ from prospecting.classify import is_engineering, is_nyc, likely_hiring_manager
     ("Application Engineer", "AMP, APAC Delivery", False),
     ("Senior Forward Deployment Engineer", "App Modernization ENG", False),
     ("Engineering Manager, Customer Tools", "Engineering", True),
+    ("Customer Engineering Manager", "Engineering", False),
     ("Customer Engineer", "", False),
 ])
 def test_is_engineering(title, team, expected):

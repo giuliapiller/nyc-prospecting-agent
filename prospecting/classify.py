@@ -8,7 +8,7 @@ _ENG_TITLE = re.compile(
     re.IGNORECASE)
 # Customer-facing or non-software "engineer" titles.
 _NON_ENG_TITLE = re.compile(
-    r"\b(?:sales|solutions?|pre[\s-]?sales|customer[\s-]+(?:engineer|success|support|facing)|support|field|account|partner|recruit(?:er|ing)|sourcer|"
+    r"\b(?:sales|solutions?|pre[\s-]?sales|customer[\s-]+(?:engineer(?:ing|s)?|success|support|facing)|support|field|account|partner|recruit(?:er|ing)|sourcer|"
     r"marketing|product marketing|designer|counsel|legal|finance|accountant|mechanical|electrical|civil|"
     r"hardware|manufacturing|facilities|audio|video|broadcast|technical writer|success|advoca(?:te|cy)|"
     r"developer relations|community|engagement|enablement|compensation|program manager|forward[\s-]deploy(?:ed|ment)|"
