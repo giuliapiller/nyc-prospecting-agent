@@ -78,3 +78,14 @@ def test_inline_formatting_keeps_vendor_sentence_whole():
 def test_internal_migration_tooling_still_counts():
     assert "migration" in drop_vendor_context("Build migration tooling for our internal billing database.", CFG)
     assert drop_vendor_context("Build migration tooling used by thousands of developers.", CFG) == ""
+
+
+def test_long_responsibility_heading_opens_section():
+    desc = "What you will do in your first six months\nLead the ledger migration\nQualifications\n5 years of Go"
+    text, structured = role_sections(desc, CFG)
+    assert structured and "ledger migration" in text
+
+
+def test_employee_benefits_ends_section():
+    text, _ = role_sections("Responsibilities\nBuild APIs\nEmployee Benefits\nCloud migration courses", CFG)
+    assert "Build APIs" in text and "migration" not in text

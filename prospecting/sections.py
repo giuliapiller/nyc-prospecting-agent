@@ -8,8 +8,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 CONFIG_DIR = Path(__file__).resolve().parent.parent / "config"
-_HEADING_MAX_LEN = 70
+_HEADING_MAX_LEN = 90
 _HEADING_MAX_WORDS = 8
+_KEEP_HEADING_MAX_WORDS = 12  # keep-heading lines stay in the text, so a looser limit is safe
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+|\n")
 
 
@@ -33,11 +34,12 @@ def load_config(config_dir: Path = CONFIG_DIR) -> SectionConfig:
 
 def _heading_kind(line: str, cfg: SectionConfig) -> str:
     h = line.strip().strip("-•*#:").strip()
-    if not h or len(h) > _HEADING_MAX_LEN or len(h.split()) > _HEADING_MAX_WORDS or h.endswith("."):
+    if not h or len(h) > _HEADING_MAX_LEN or h.endswith("."):
         return ""
-    if any(p.search(h) for p in cfg.keep):
+    words = len(h.split())
+    if words <= _KEEP_HEADING_MAX_WORDS and any(p.search(h) for p in cfg.keep):
         return "keep"
-    if any(p.search(h) for p in cfg.drop):
+    if words <= _HEADING_MAX_WORDS and any(p.search(h) for p in cfg.drop):
         return "drop"
     return ""
 
