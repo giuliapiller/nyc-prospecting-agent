@@ -5,7 +5,7 @@ Mastercard,mastercard.com,Payments,not_found,,,phenom;workday,,,,,,,,no
 Jefferies,jefferies.com,Banking,not_found,,,,,,,,,,,no
 BlackRock,blackrock.com,Asset management,not_found,,,,,,,,,,,no
 Two Sigma,twosigma.com,Quant finance,not_found,,,,,,,,,,,no
-Jane Street,janestreet.com,Quant finance,found,greenhouse,janestreet,,216,125,43,8,3,4,legacy_stack=2; modernization=4; security_remediation=2,no
+Jane Street,janestreet.com,Quant finance,found,greenhouse,janestreet,,216,125,43,8,3,8,legacy_stack=2; modernization=4; security_remediation=2,no
 Bloomberg,bloomberg.com,Financial data,not_found,,,avature,,,,,,,,no
 Moody's,moodys.com,Financial data,not_found,,,successfactors,,,,,,,,no
 S&P Global,spglobal.com,Financial data,not_found,,,icims;workday,,,,,,,,no
@@ -20,13 +20,13 @@ Betterment,betterment.com,Fintech,found,greenhouse,betterment,,25,6,6,0,0,0,,no
 Paxos,paxos.com,Fintech,found,ashby,paxos,,25,6,0,2,0,2,modernization=1; security_remediation=1,no
 Chainalysis,chainalysis.com,Fintech,not_found,,,,,,,,,,,no
 Datadog,datadoghq.com,Software,found,greenhouse,datadog,,384,25,15,2,2,2,modernization=2,no
-MongoDB,mongodb.com,Software,found,greenhouse,mongodb,,420,102,40,41,18,31,modernization=39; security_remediation=4; test_coverage=2,no
+MongoDB,mongodb.com,Software,found,greenhouse,mongodb,,420,102,39,41,17,30,modernization=39; security_remediation=4; test_coverage=2,no
 Squarespace,squarespace.com,Software,found,greenhouse,squarespace,,20,10,5,2,2,2,modernization=1; security_remediation=1,no
 Etsy,etsy.com,E-commerce,not_found,,,,,,,,,,,no
 Peloton,onepeloton.com,Consumer tech,found,greenhouse,peloton,,45,12,4,0,0,0,,no
 Warby Parker,warbyparker.com,Retail,not_found,,,,,,,,,,,no
 Verizon,verizon.com,Telecom,not_found,,,,,,,,,,,no
-Oscar Health,hioscar.com,Healthtech,found,greenhouse,oscar,,179,21,21,8,8,4,modernization=8; security_remediation=4,no
+Oscar Health,hioscar.com,Healthtech,found,greenhouse,oscar,,179,21,21,8,8,3,modernization=8; security_remediation=4,no
 Flatiron Health,flatiron.com,Healthtech,found,greenhouse,flatironhealth,,22,6,0,2,0,2,modernization=2,no
 Zocdoc,zocdoc.com,Healthtech,found,greenhouse,zocdoc,,65,16,11,5,4,5,modernization=4; security_remediation=1,no
 Pfizer,pfizer.com,Pharma,not_found,,,workday,,,,,,,,no
