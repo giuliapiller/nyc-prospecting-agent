@@ -35,8 +35,8 @@ class FileCheck:
 CHECKS = [
     FileCheck("cursor", ".cursorrules", "filename:.cursorrules", re.compile(r"(?:^|/)\.cursorrules$")),
     FileCheck("cursor", ".cursor/", "path:.cursor", re.compile(r"(?:^|/)\.cursor/")),
-    FileCheck("claude_code", "CLAUDE.md", "filename:CLAUDE.md", re.compile(r"(?:^|/)CLAUDE\.md$", re.I)),
-    FileCheck("agents_md", "AGENTS.md", "filename:AGENTS.md", re.compile(r"(?:^|/)AGENTS\.md$", re.I)),
+    FileCheck("claude_code", "CLAUDE.md", "filename:CLAUDE.md", re.compile(r"(?:^|/)CLAUDE\.md$")),
+    FileCheck("agents_md", "AGENTS.md", "filename:AGENTS.md", re.compile(r"(?:^|/)AGENTS\.md$")),
     FileCheck("copilot", ".github/copilot-instructions.md", "filename:copilot-instructions.md",
               re.compile(r"(?:^|/)\.github/copilot-instructions\.md$")),
     FileCheck("copilot", ".github/instructions/", "path:.github/instructions",

@@ -56,6 +56,8 @@ def test_path_filters():
     assert check(".cursorrules").match.search(".cursorrules")
     assert check("CLAUDE.md").match.search("pkg/CLAUDE.md")
     assert not check("CLAUDE.md").match.search("docs/claude.md.bak")
+    assert not check("AGENTS.md").match.search("docs/development/agents.md")
+    assert check("AGENTS.md").match.search("svc/AGENTS.md")
     assert check(".github/copilot-instructions.md").match.search(".github/copilot-instructions.md")
     assert not check(".github/copilot-instructions.md").match.search("docs/copilot-instructions.md")
     assert check(".github/instructions/").match.search(".github/instructions/python.instructions.md")
