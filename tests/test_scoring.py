@@ -127,3 +127,9 @@ def test_total_rounds_unrounded_sum():
 def test_owner_from_director_only_postings():
     title, basis = owner_persona(["CTO / SVP Engineering"], "Banking")
     assert title == "SVP Engineering" and "default" not in basis
+
+
+def test_dashboard_shows_incomplete_scan_caveat():
+    rows = _fixture()
+    rows[0]["limited_data_reason"] = "GitHub scan incomplete"
+    assert "GitHub scan incomplete" in render_dashboard(rows, top_n=1)

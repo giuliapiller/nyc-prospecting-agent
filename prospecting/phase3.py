@@ -111,8 +111,8 @@ def render_dashboard(rows: list[dict], top_n: int = 10) -> str:
     for r in rows[:top_n]:
         link = (f'<a href="{e(r["evidence_link"])}" target="_blank" rel="noopener">evidence</a>'
                 if r["evidence_link"] else "no public evidence link")
-        badge = f'<span class="badge">limited data: {e(r["limited_data_reason"])}</span>' \
-            if r["data_quality"] == "limited data" else ""
+        badge = (f'<span class="badge">{"limited data: " if r["data_quality"] == "limited data" else ""}'
+                 f'{e(r["limited_data_reason"])}</span>') if r["limited_data_reason"] else ""
         bars = "".join(
             f'<span title="{k} {r["score_" + k]}/{w}" style="width:{100 * r["score_" + k] / 100:.1f}%" class="b-{k}"></span>'
             for k, w in WEIGHTS.items())
