@@ -1,0 +1,37 @@
+company,website,sector,board_status,board_provider,board_slug,ats_detected,total_postings,engineering_postings,nyc_engineering_postings,flagged_postings,flagged_nyc_postings,flagged_unique_roles,flagged_by_category,existing_customer_public
+BNY,bny.com,Banking,not_found,,,oracle,,,,,,,,no
+American Express,americanexpress.com,Payments,not_found,,,eightfold,,,,,,,,no
+Mastercard,mastercard.com,Payments,not_found,,,phenom;workday,,,,,,,,no
+Jefferies,jefferies.com,Banking,not_found,,,,,,,,,,,no
+BlackRock,blackrock.com,Asset management,not_found,,,,,,,,,,,no
+Two Sigma,twosigma.com,Quant finance,not_found,,,,,,,,,,,no
+Jane Street,janestreet.com,Quant finance,found,greenhouse,janestreet,,216,125,43,8,3,8,legacy_stack=2; modernization=4; security_remediation=2,no
+Bloomberg,bloomberg.com,Financial data,not_found,,,avature,,,,,,,,no
+Moody's,moodys.com,Financial data,not_found,,,successfactors,,,,,,,,no
+S&P Global,spglobal.com,Financial data,not_found,,,icims;workday,,,,,,,,no
+MSCI,msci.com,Financial data,not_found,,,icims,,,,,,,,no
+Nasdaq,nasdaq.com,Market infrastructure,found,greenhouse,nasdaq,workday,23,4,0,0,0,0,,no
+Broadridge,broadridge.com,Fintech infrastructure,not_found,,,workday,,,,,,,,no
+MetLife,metlife.com,Insurance,not_found,,,avature,,,,,,,,no
+AIG,aig.com,Insurance,not_found,,,workday,,,,,,,,no
+Travelers,travelers.com,Insurance,not_found,,,workday,,,,,,,,no
+Lemonade,lemonade.com,Insurtech,found,ashby,lemonade,,43,9,0,0,0,0,,no
+Betterment,betterment.com,Fintech,found,greenhouse,betterment,,25,6,6,0,0,0,,no
+Paxos,paxos.com,Fintech,found,ashby,paxos,,25,6,0,2,0,2,modernization=1; security_remediation=1,no
+Chainalysis,chainalysis.com,Fintech,not_found,,,,,,,,,,,no
+Datadog,datadoghq.com,Software,found,greenhouse,datadog,,384,25,15,2,2,2,modernization=2,no
+MongoDB,mongodb.com,Software,found,greenhouse,mongodb,,420,102,39,41,17,30,modernization=39; security_remediation=4; test_coverage=2,no
+Squarespace,squarespace.com,Software,found,greenhouse,squarespace,,20,10,5,2,2,2,modernization=1; security_remediation=1,no
+Etsy,etsy.com,E-commerce,not_found,,,,,,,,,,,no
+Peloton,onepeloton.com,Consumer tech,found,greenhouse,peloton,,45,12,4,0,0,0,,no
+Warby Parker,warbyparker.com,Retail,not_found,,,,,,,,,,,no
+Verizon,verizon.com,Telecom,not_found,,,,,,,,,,,no
+Oscar Health,hioscar.com,Healthtech,found,greenhouse,oscar,,179,21,21,8,8,3,modernization=8; security_remediation=4,no
+Flatiron Health,flatiron.com,Healthtech,found,greenhouse,flatironhealth,,22,6,0,2,0,2,modernization=2,no
+Zocdoc,zocdoc.com,Healthtech,found,greenhouse,zocdoc,,65,16,11,5,4,5,modernization=4; security_remediation=1,no
+Pfizer,pfizer.com,Pharma,not_found,,,workday,,,,,,,,no
+The New York Times,nytimes.com,Media,found,greenhouse,thenewyorktimes,,119,14,14,5,5,5,modernization=5,no
+Conde Nast,condenast.com,Media,not_found,,,workday,,,,,,,,no
+Paramount,paramount.com,Media,not_found,,,successfactors,,,,,,,,no
+Fox Corporation,foxcorporation.com,Media,not_found,,,,,,,,,,,no
+Warner Music Group,wmg.com,Media,found,lever,wmg,lever;workday,32,18,0,7,0,5,legacy_stack=1; modernization=6; test_coverage=2,no
