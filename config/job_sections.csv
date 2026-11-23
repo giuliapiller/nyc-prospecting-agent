@@ -1,6 +1,6 @@
 kind,pattern
 # Headings (case-insensitive regex, matched against short heading-like lines). Keywords count only in "keep"
-# sections; "drop" headings end a keep section. Postings with no recognizable keep heading are scanned whole.
+# sections; "drop" headings end a keep section (anchored so a duty that mentions e.g. benefits doesn't end it). Postings with no recognizable keep heading are scanned whole.
 keep,responsibilit
 keep,what you['’]?ll (?:do|be doing|work on|get to do)
 keep,what you will (?:do|be doing|work on)
@@ -27,10 +27,10 @@ keep,we['’]?d love it if
 keep,candidate profile
 keep,(?:skills|experience)(?: and| &| you need| required)?:?$
 drop,^about (?!(?:the|this) (?:role|position|job|opportunity)|you)
-drop,who we are
-drop,our (?:mission|values|compass|story|culture)
-drop,why (?:you should )?(?:apply|join|work)
-drop,benefits|perks|compensation|salary|pay range|base pay
-drop,equal (?:employment )?opportunit|eeo|accommodation
-drop,learn more
-drop,requisition id
+drop,^who we are
+drop,^(?:about )?our (?:mission|values|compass|story|culture)
+drop,^why (?:you should )?(?:apply|join|work)
+drop,"^(?:(?:our|your|the|total|compensation|pay|and|&)\s+){0,3}(?:benefits|perks|compensation|salary|pay range|base pay)"
+drop,^(?:equal (?:employment )?opportunit|eeo\b|accommodation)
+drop,^learn more
+drop,^requisition id

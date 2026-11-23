@@ -9,6 +9,7 @@ from pathlib import Path
 
 CONFIG_DIR = Path(__file__).resolve().parent.parent / "config"
 _HEADING_MAX_LEN = 70
+_HEADING_MAX_WORDS = 8
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+|\n")
 
 
@@ -32,7 +33,7 @@ def load_config(config_dir: Path = CONFIG_DIR) -> SectionConfig:
 
 def _heading_kind(line: str, cfg: SectionConfig) -> str:
     h = line.strip().strip("-•*#:").strip()
-    if not h or len(h) > _HEADING_MAX_LEN or h.endswith("."):
+    if not h or len(h) > _HEADING_MAX_LEN or len(h.split()) > _HEADING_MAX_WORDS or h.endswith("."):
         return ""
     if any(p.search(h) for p in cfg.keep):
         return "keep"
@@ -44,7 +45,8 @@ def _heading_kind(line: str, cfg: SectionConfig) -> str:
 def role_sections(description: str, cfg: SectionConfig) -> tuple[str, bool]:
     """Text under responsibilities/requirements headings. Returns (text, structured).
 
-    If no keep heading is found the whole description is returned with structured=False.
+    If no keep heading is found the whole description is returned with structured=False. Keep-heading lines are
+    kept too, since a short bullet ("You have migrated legacy systems") can look like a heading.
     """
     lines = description.split("\n")
     kinds = [_heading_kind(line, cfg) for line in lines]
@@ -54,7 +56,7 @@ def role_sections(description: str, cfg: SectionConfig) -> tuple[str, bool]:
     for line, kind in zip(lines, kinds):
         if kind:
             keeping = kind == "keep"
-        elif keeping:
+        if keeping:
             out.append(line)
     return "\n".join(out), True
 

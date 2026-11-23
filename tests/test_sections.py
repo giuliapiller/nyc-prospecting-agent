@@ -55,3 +55,12 @@ def test_vendor_product_titles_do_not_flag():
     rows, stats = analyze_postings([posting("1", "Responsibilities\nBuild the sync service.",
                                             title="Senior Software Engineer, Migration Tooling")], CFG)
     assert stats["flagged_postings"] == 0
+
+
+def test_short_bullets_are_not_lost_or_section_enders():
+    desc = ("Responsibilities\nYou have experience migrating legacy systems\nManage benefits enrollment integrations\n"
+            "Reduce tech debt in the payroll service\nBenefits\nUnlimited PTO and migration stipend")
+    text, structured = role_sections(desc, CFG)
+    assert structured
+    assert "migrating legacy systems" in text and "tech debt" in text
+    assert "stipend" not in text
