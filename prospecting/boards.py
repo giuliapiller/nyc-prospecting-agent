@@ -63,11 +63,22 @@ class Board:
     postings: list[Posting] = field(default_factory=list)
 
 
+_BLOCK_TAGS = ["p", "div", "li", "ul", "ol", "h1", "h2", "h3", "h4", "h5", "h6", "tr", "table", "section",
+               "article", "header", "footer", "blockquote", "pre", "dt", "dd"]
+
+
 def html_to_text(raw: str) -> str:
+    """One line per block element; inline tags (<strong>, <a>, ...) stay inside their sentence."""
     if not raw:
         return ""
     soup = BeautifulSoup(html.unescape(raw), "html.parser")
-    return soup.get_text("\n", strip=True)
+    for br in soup.find_all("br"):
+        br.replace_with("\n")
+    for tag in soup.find_all(_BLOCK_TAGS):
+        tag.insert_before("\n")
+        tag.insert_after("\n")
+    lines = (" ".join(line.split()) for line in soup.get_text().split("\n"))
+    return "\n".join(line for line in lines if line)
 
 
 def candidate_slugs(company: Company) -> list[str]:
