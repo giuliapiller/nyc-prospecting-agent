@@ -1,15 +1,51 @@
 # NYC prospecting agent
 
-Finds public "why now" signals for selling an AI coding agent to the NYC enterprises in `companies.csv`.
-It's built in phases. This README will be expanded in Phase 4.
+Ranks the NYC enterprises in `companies.csv` by "why now" for selling an AI coding agent (Devin), using public data only:
 
-## Phase 1: job-posting signals
+1. **Job postings** (Greenhouse, Lever, Ashby public JSON APIs): engineering roles describing project-shaped work such as legacy migration, modernization, tech debt, test coverage and security remediation.
+2. **GitHub**: public repos with AI coding-tool config files (Cursor, Claude Code, Copilot, AGENTS.md).
+3. **Score + output**: a 0–100 score, two inferred persona titles, a one-sentence outreach angle, a ranked CSV and a top-10 HTML dashboard.
+
+## Quick start
 
 ```bash
-pip install -r requirements.txt
-python -m prospecting phase1        # writes output/*.csv and output/run.log
-python -m pytest -q
+pip install -r requirements.txt            # or: make install
+export GITHUB_TOKEN=...                    # any GitHub token; no scopes needed for public data
+python -m prospecting run                  # or: make refresh
+open output/dashboard.html
 ```
+
+`run` executes all three phases in order and writes everything to `output/`; the log goes to `output/run.log`. A cold run takes about 25 minutes, almost all of it GitHub code search (10 requests/min). A rerun within 20 hours reads from the cache and takes seconds.
+
+| Command | What it does |
+|---|---|
+| `python -m prospecting run` | Full refresh: Phase 1 → 2 → 3 |
+| `python -m prospecting run --skip-github` | Refresh job postings and scores, reusing the last GitHub scan (no token needed) |
+| `python -m prospecting phase1` / `phase2` / `phase3` | One phase. Phase 3 only re-scores the existing CSVs. |
+| `python -m pytest -q` (`make test`) | Tests for keyword matching, section/vendor filters, classification, GitHub matching, scoring, personas, angles and the CLI |
+
+### Weekly refresh
+
+Run `make refresh` once a week. Postings change daily, so the 20-hour cache means each weekly run fetches fresh data. To schedule it locally, add a cron entry such as:
+
+```cron
+0 7 * * 1  cd /path/to/nyc-prospecting-agent && GITHUB_TOKEN=... make refresh >> output/cron.log 2>&1
+```
+
+Set `PROSPECTING_CACHE_TTL=0` to ignore the cache entirely.
+
+### Configuration
+
+| File | Purpose |
+|---|---|
+| `companies.csv` | Input list (`company, website, sector, why_on_list`). The `<place> HQ` cue feeds the NYC score; the rest of `why_on_list` feeds angles for companies with no postings. |
+| `config/board_overrides.csv` | Pin or block a job board |
+| `config/job_sections.csv` | Headings that count as responsibilities/requirements (keep) or end them (drop) |
+| `config/vendor_context.txt` | Phrases marking sentences about the employer's own product or customers |
+| `config/github_orgs.csv` | Pin GitHub orgs |
+| `prospecting/scoring.py` | Score weights and caps (constants at the top) |
+
+## Phase 1: job-posting signals
 
 How it works:
 - **Board discovery.** For each company, it scans the public careers page for ATS fingerprints and board links. It then tries name and domain slugs on the public Greenhouse, Lever and Ashby JSON APIs.
@@ -103,3 +139,14 @@ One rule-based sentence per company: the specific signal (role count, keywords a
 - `output/phase3_ranked.csv`: all companies ranked, with score components, data quality, signal summary, evidence link, both personas and the angle.
 - `output/dashboard.html`: self-contained one-page view of the top 10 (score, why-now signal, evidence link, personas, angle).
 - The run log lists companies whose careers site uses Workday.
+
+## Limitations
+
+- **Coverage.** Only 14 of 36 companies have a public Greenhouse/Lever/Ashby board. The rest (Workday, Avature, SuccessFactors, iCIMS, Oracle, Eightfold, or undetected) are scored without job data and marked "limited data", so their rank means "unknown", not "low priority". Some companies with a board (Nasdaq, Warner Music Group) post most jobs on Workday, so their board is a subset.
+- **Keyword signals are heuristics.** Matching is regex-based and sees only what postings say. Vendor and section filters reduce but don't remove false positives (e.g. a team building a migration product), and postings with no recognizable headings are scanned whole. Every flagged row has an evidence snippet for spot-checking.
+- **GitHub is a weak proxy.** Public repos are mostly open-source projects. "No public signal" says nothing about internal AI tooling, and code search sees only default branches, non-forks and up to 100 hits per query. Org matching can miss orgs with unrelated names; pin them in `config/github_orgs.csv`.
+- **Inferred, not researched.** Hiring-manager and persona titles are rule-based guesses from titles, teams and sector. They are titles only, never people. Outreach angles are templates to edit before sending.
+- **NYC presence** comes from the `HQ` cue in `companies.csv` and posting locations, not from office or headcount data.
+- **`existing_customer_public`** only checks the public case studies on devin.ai/customers, not the full customer list.
+- **Undocumented endpoints.** The ATS JSON APIs are public but can change without notice; the run log shows any company whose board failed to load.
+- **Local only.** There is no scheduler or CI job. Use the cron example above.
